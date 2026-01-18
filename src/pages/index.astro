@@ -1,11 +1,27 @@
 ---
-import Welcome from '../components/Welcome.astro';
 import Layout from '../layouts/Layout.astro';
+import data from '../data/product.json';
+import CardProduct from '../components/CardProduct.astro';
+import {BarAction} from '../components/BarAction.tsx';
 
-// Welcome to Astro! Wondering what to do next? Check out the Astro documentation at https://docs.astro.build
-// Don't want to use any of this? Delete everything in this file, the `assets`, `components`, and `layouts` directories, and start fresh.
+const products: Product[] = data.productos;
 ---
 
 <Layout>
-	<Welcome />
+	<main class="relative h-screen w-full max-w-xl mx-auto bg-black overflow-hidden font-display">
+
+		{/* Immersive Scroll Container */}
+
+		<div class="snap-container no-scrollbar w-full h-full overflow-y-scroll snap-y snap-mandatory bg-white">
+			{products.map((producto: Product) => (
+				<section id={`product-${producto.id}`} class="h-screen w-full snap-start">
+					<CardProduct product={producto} />
+				</section>
+			))}
+		</div>
+
+		{/* Overlays */}
+		<BarAction client:load productos={products} />
+	</main>
+	
 </Layout>

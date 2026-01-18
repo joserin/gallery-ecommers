@@ -17,30 +17,69 @@ Inside of your Astro project, you'll see the following folders and files:
 ├── src
 │   ├── assets
 │   │   └── astro.svg
-│   ├── components
-│   │   └── Welcome.astro
-│   ├── layouts
-│   │   └── Layout.astro
-│   └── pages
-│       └── index.astro
-└── package.json
+# Gallery Ecommers
+
+Sitio de ejemplo de e-commerce creado con Astro. Contiene una galería de productos, componentes reutilizables y datos de ejemplo para desplegar o extender.
+
+## Características
+
+- Interfaz basada en componentes con Astro/React/TSX.
+- Datos de ejemplo en JSON/TS para productos.
+- Componentes: barra de acciones, navegación inferior, tarjetas de producto y filtros.
+
+## Estructura relevante
+
+- **Páginas:** [src/pages/index.astro](src/pages/index.astro)
+- **Layout principal:** [src/layouts/Layout.astro](src/layouts/Layout.astro)
+- **Componentes clave:** [src/components/CardProduct.astro](src/components/CardProduct.astro), [src/components/BarAction.tsx](src/components/BarAction.tsx), [src/components/BottomNav.tsx](src/components/BottomNav.tsx)
+- **Datos de productos:** [src/data/product.json](src/data/product.json) y [public/data/products.ts](public/data/products.ts)
+- **Estilos globales:** [src/styles/global.css](src/styles/global.css)
+
+## Requisitos
+
+- Node.js (v16+ recomendado)
+- pnpm (gestor de paquetes)
+
+## Instalación y desarrollo
+
+1. Instala dependencias:
+
+```
+pnpm install
 ```
 
-To learn more about the folder structure of an Astro project, refer to [our guide on project structure](https://docs.astro.build/en/basics/project-structure/).
+2. Ejecuta el servidor de desarrollo:
 
-## 🧞 Commands
+```
+pnpm dev
+```
 
-All commands are run from the root of the project, from a terminal:
+3. Construir para producción:
 
-| Command                   | Action                                           |
-| :------------------------ | :----------------------------------------------- |
-| `pnpm install`             | Installs dependencies                            |
-| `pnpm dev`             | Starts local dev server at `localhost:4321`      |
-| `pnpm build`           | Build your production site to `./dist/`          |
-| `pnpm preview`         | Preview your build locally, before deploying     |
-| `pnpm astro ...`       | Run CLI commands like `astro add`, `astro check` |
-| `pnpm astro -- --help` | Get help using the Astro CLI                     |
+```
+pnpm build
+```
 
-## 👀 Want to learn more?
+4. Previsualizar el build localmente:
 
-Feel free to check [our documentation](https://docs.astro.build) or jump into our [Discord server](https://astro.build/chat).
+```
+pnpm preview
+```
+
+## Datos y personalización
+
+- Los productos de ejemplo se encuentran en [src/data/product.json](src/data/product.json). Puedes editar ese archivo o sustituir/añadir datos en [public/data/products.ts](public/data/products.ts) según necesites.
+- Para cambiar la presentación o la lógica, modifica los componentes en [src/components](src/components).
+
+## Despliegue
+
+Este proyecto genera un sitio estático (carpeta `dist/`) listo para servir en Netlify, Vercel u otros hosts estáticos. Comando de build: `pnpm build`.
+
+## Contribuir
+
+Si quieres colaborar, crea un issue o un pull request. Indica claramente cambios en datos o componentes.
+
+## Licencia
+
+Revisa si existe un archivo `LICENSE` en el repositorio. Si no hay licencia, añade la que prefieras antes de publicar.
+

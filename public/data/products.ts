@@ -1,0 +1,37 @@
+
+import { Product } from '../types';
+
+export const products: Product[] = [
+  {
+    id: '1',
+    name: 'Artisan Leather Weekender',
+    price: 299.00,
+    description: 'Handcrafted from premium full-grain leather, this versatile bag is designed for style and durability. Perfect for short trips and daily commutes.',
+    imageUrl: 'https://images.unsplash.com/photo-1547949003-9792a18a2601?auto=format&fit=crop&q=80&w=1200',
+    category: 'Bags'
+  },
+  {
+    id: '2',
+    name: 'Minimalist Chronograph',
+    price: 185.00,
+    description: 'A timeless masterpiece featuring sapphire crystal and a precision Japanese movement. Water-resistant and built for everyday elegance.',
+    imageUrl: 'https://images.unsplash.com/photo-1523275335684-37898b6baf30?auto=format&fit=crop&q=80&w=1200',
+    category: 'Watches'
+  },
+  {
+    id: '3',
+    name: 'Acoustic Pro Wireless',
+    price: 349.00,
+    description: 'Experience pure studio sound with active noise cancellation and 40-hour battery life. Designed for audiophiles who demand the best.',
+    imageUrl: 'https://images.unsplash.com/photo-1505740420928-5e560c06d30e?auto=format&fit=crop&q=80&w=1200',
+    category: 'Audio'
+  },
+  {
+    id: '4',
+    name: 'Canvas Field Jacket',
+    price: 145.00,
+    description: 'Rugged yet refined, this water-resistant jacket is built for the outdoors. Multiple pockets for all your essentials.',
+    imageUrl: 'https://images.unsplash.com/photo-1551488831-00ddcb6c6bd3?auto=format&fit=crop&q=80&w=1200',
+    category: 'Apparel'
+  }
+];
