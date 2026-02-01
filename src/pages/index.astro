@@ -1,10 +1,16 @@
 ---
 import Layout from '../layouts/Layout.astro';
-import data from '../data/product.json';
 import CardProduct from '../components/CardProduct.astro';
 import {BarAction} from '../components/BarAction.tsx';
+import { supabase } from '../lib/supabase';
 
-const products: Product[] = data.productos;
+const { data: products, error } = await supabase
+    .from('productos_catalogo')
+    .select('*');
+
+if (error) {
+    console.error("Error cargando productos:", error);
+}
 ---
 
 <Layout>
@@ -13,15 +19,15 @@ const products: Product[] = data.productos;
 		{/* Immersive Scroll Container */}
 
 		<div class="snap-container no-scrollbar w-full h-full overflow-y-scroll snap-y snap-mandatory bg-white">
-			{products.map((producto: Product) => (
-				<section id={`product-${producto.id}`} class="h-screen w-full snap-start">
+			{products?.map((producto: Product) => (
+				<section id={`product-${producto.codigo}`} class="h-screen w-full snap-start">
 					<CardProduct product={producto} />
 				</section>
 			))}
 		</div>
 
 		{/* Overlays */}
-		<BarAction client:load productos={products} />
+		<BarAction client:load productos={products || []} />
 	</main>
 	
 </Layout>

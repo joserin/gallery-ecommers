@@ -1,28 +1,23 @@
 ---
-interface Props{
-    product: {
-        id: string;
-        name: string;
-        price: number;
-        description: string;
-        imageUrl: string;
-        category: string;
-    }
+interface Props {
+    product: Product;
 }
 
 const { product } = Astro.props;
 
+const safePrice = Number(product.precio || 0);
+
 // Generamos el link de WhatsApp una sola vez en el servidor
-const waMessage = encodeURIComponent(`Hola, me interesa el repuesto: ${product.name} (Ref: ${product.id})`);
+const waMessage = encodeURIComponent(`Hola, me interesa el repuesto: ${product.nombre} (Ref: ${product.codigo})`);
 const waLink = `https://wa.me/?text=${waMessage}`;
 ---
 
 <section class="snap-section relative w-full h-full overflow-hidden">
     <picture class="absolute inset-0">
         <img 
-          alt={product.name} 
+          alt={product.nombre} 
           class="h-full w-full object-cover" 
-          src={product.imageUrl}
+          src={product.imagen_url}
           loading="lazy"
         />
         <div class="absolute inset-0 bg-linear-to-t from-black/80 via-black/20 to-transparent"></div>
@@ -30,13 +25,13 @@ const waLink = `https://wa.me/?text=${waMessage}`;
     <div class="absolute bottom-20 left-4 right-4 animate-fade-in-up">
         <div class="glass-morphism bg-opacity-40 text-white transform transition-all duration-300">
             <div class="flex justify-between items-start mb-2">
-                <h2 class="text-2xl font-extrabold tracking-tight drop-shadow-sm">{product.name}</h2>
+                <h2 class="text-2xl font-extrabold tracking-tight drop-shadow-sm">{product.nombre}</h2>
                 <span class="text-xl font-bold text-white/90 drop-shadow-sm">
-                ${product.price.toFixed(2)}
+                ${safePrice.toFixed(2)}
                 </span>
             </div>
             <p class="text-sm font-medium leading-relaxed text-white/80">
-                {product.description}
+                {product.categoria} - Ref: {product.codigo_oem}
             </p>
         </div>
     </div>
@@ -53,8 +48,8 @@ const waLink = `https://wa.me/?text=${waMessage}`;
         </a>
 
         <button class="flex flex-col items-center gap-1 group share-button p-1 rounded-2xl"
-          data-title={product.name}
-          data-id={product.id}
+          data-title={product.nombre}
+          data-id={product.codigo}
         >
         
             <picture>
