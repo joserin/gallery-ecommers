@@ -5,12 +5,12 @@ interface FiltersOverlayProps {
   isOpen: boolean;
   onClose: () => void;
   categories: string[];
-  brands: string[];
-  models: string[];
-  onApplyFilters: (filters: { category: string, brand: string, model: string }) => void;
+  marcas: string[];
+  modelos: string[];
+  onApplyFilters: (filters: { category: string, marca: string, modelo: string }) => void;
 }
 
-const FiltersOverlay: React.FC<FiltersOverlayProps> = ({ isOpen, onClose, categories, brands, models, onApplyFilters}) => {
+const FiltersOverlay: React.FC<FiltersOverlayProps> = ({ isOpen, onClose, categories, marcas, modelos, onApplyFilters}) => {
 
   const [selCat, setSelCat] = useState('');
   const [selBrand, setSelBrand] = useState('');
@@ -29,7 +29,7 @@ const FiltersOverlay: React.FC<FiltersOverlayProps> = ({ isOpen, onClose, catego
     setSelCat('');
     setSelBrand('');
     setSelModel('');
-    onApplyFilters({ category: '', brand: '', model: '' });
+    onApplyFilters({ category: '', marca: '', modelo: '' });
     onClose();
   };
   
@@ -48,53 +48,66 @@ const FiltersOverlay: React.FC<FiltersOverlayProps> = ({ isOpen, onClose, catego
           <div className='flex flex-col'>
             <label htmlFor="category-select"
               className="text-white/40 text-xs uppercase tracking-widest font-bold mb-4">
-                Categories
+                Categorias
             </label>
+            {categories.length === 0 ? (
+              <option value="" className='bg-black'>No hay filtro de categorias disponibles</option>
+            ) : (
 
-            <select value={selCat} onChange={(e) => handleSelectChange('cat', e.target.value)}
-              className='flex-1 bg-white/5 border border-white/10 rounded-xl p-3
-              text-white text-center'>
-                <option value="">Select a category</option>
-                {categories.map((cat, index) => (
-                  <option key={`cat-${cat}-${index}`} value={cat}>{cat}</option>
-                ))}
-            </select>
+              <select value={selCat} onChange={(e) => handleSelectChange('cat', e.target.value)}
+                className='flex-1 bg-white/5 border border-white/10 rounded-xl p-3
+                text-white text-center'>
+                  <option className='bg-black' value="">Selecione una categoria</option>
+                  {categories.map((cat, index) => (
+                    <option className='bg-black'
+                      key={`cat-${cat}-${index}`} value={cat}>{cat}</option>
+                  ))}
+              </select>
+            )}
           </div>
 
           <div className='flex flex-col'>
             <label htmlFor="brand-select"
               className="text-white/40 text-xs uppercase tracking-widest font-bold mb-4">
-                Brands
+                Marca
             </label>
-
-            <select value={selBrand} onChange={(e) => handleSelectChange('brand', e.target.value)}
-              className='flex-1 bg-white/5 border border-white/10 rounded-xl p-3 text-white text-center'>
-                <option value="">Select a brand</option>
-                {brands.map((brand, index) => (
-                  <option key={`brand-${brand}-${index}`} value={brand}>{brand}</option>
-                ))}
-            </select>
+            {marcas.length === 0 ? (
+              <option value="" className='bg-black'>No hay filtro de marcas disponibles</option>
+            ) : (
+              <select value={selBrand} onChange={(e) => handleSelectChange('brand', e.target.value)}
+                className='flex-1 bg-white/5 border border-white/10 rounded-xl p-3 text-white text-center'>
+                  <option value="" className='bg-black'>Selecione una marca</option>
+                  {marcas.map((marca, index) => (
+                    <option className='bg-black'
+                      key={`marca-${marca}-${index}`} value={marca}>{marca}</option>
+                  ))}
+              </select>
+            )}
           </div>
 
           <div className='flex flex-col'>
             <label htmlFor="model-select"
               className="text-white/40 text-xs uppercase tracking-widest font-bold mb-4">
-                Models
+                Modelos
             </label>
-
-            <select value={selModel} onChange={(e) => handleSelectChange('model', e.target.value)}
-              className='flex-1 bg-white/5 border border-white/10 rounded-xl p-3 text-white text-center'>
-              <option value="">Select a model</option>
-              {models.map((model, index) => (
-                <option key={`model-${model}-${index}`} value={model}>{model}</option>
-              ))}
-            </select>
+            {modelos.length === 0 ? (
+              <option value="" className='bg-black'>No hay filtro de modelos disponibles</option>
+            ) : (
+              <select value={selModel} onChange={(e) => handleSelectChange('model', e.target.value)}
+                className='flex-1 bg-white/5 border border-white/10 rounded-xl p-3 text-white text-center'>
+                <option value="" className='bg-black'>Selecione un modelo</option>
+                {modelos.map((modelo, index) => (
+                  <option className='bg-black'
+                    key={`model-${modelo}-${index}`} value={modelo}>{modelo}</option>
+                ))}
+              </select>
+            )}
           </div>
         </section>
 
         <footer className='text-white font-bold text-lg flex flex-row justify-between items-center'>
           <button 
-            onClick={() => { onApplyFilters({ category: selCat, brand: selBrand, model: selModel }); onClose(); }}
+            onClick={() => { onApplyFilters({ category: selCat, marca: selBrand, modelo: selModel }); onClose(); }}
             className="bg-primary py-4 rounded-2xl "
           >
             Mostrar Resultados

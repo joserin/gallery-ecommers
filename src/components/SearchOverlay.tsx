@@ -21,8 +21,8 @@ const SearchOverlay: React.FC<SearchOverlayProps> = ({ isOpen, onClose, searchTe
         setFilteredProducts([]);
       } else {
         const results = productos.filter(p => 
-          p.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
-          p.category.toLowerCase().includes(searchTerm.toLowerCase())
+          p.nombre.toLowerCase().includes(searchTerm.toLowerCase()) ||
+          p.categoria.toLowerCase().includes(searchTerm.toLowerCase())
         );
         setFilteredProducts(results);
       }
@@ -72,12 +72,12 @@ const SearchOverlay: React.FC<SearchOverlayProps> = ({ isOpen, onClose, searchTe
           <div className="flex flex-wrap gap-2 justify-center">
             {filteredProducts.map(product => (
               <button
-                onClick={() => handleProductClick(product.id)}
-                key={product.id} className="flex items-center gap-4 bg-white/10 p-2 rounded-xl">
-                <img src={product.imageUrl} alt={product.name} className="w-12 h-12 rounded-lg object-cover" />
+                onClick={() => handleProductClick(product.codigo)}
+                key={product.codigo} className="flex items-center gap-4 bg-white/10 p-2 rounded-xl">
+                <img src={product.imagen_url} alt={product.nombre} className="w-12 h-12 rounded-lg object-cover" />
                 <div>
-                  <p className="text-white font-medium">{product.name}</p>
-                  <p className="text-white/40 text-sm">{product.category}</p>
+                  <p className="text-white font-medium">{product.nombre}</p>
+                  <p className="text-white/40 text-sm">{product.categoria}</p>
                 </div>
               </button>
             ))}

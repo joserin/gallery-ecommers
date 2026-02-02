@@ -16,21 +16,22 @@ export function BarAction( {productos} : BarActionProps ) {
 
   // Derive categories from products
   const categories = useMemo(() => {
-    const cats = Array.from(new Set(productos.map((p: { category: string; }) => p.category)));
+    const cats = Array.from(new Set(productos.map((p: { categoria: string; }) => p.categoria)));
     return cats;
   }, []);
+  
   const brands = useMemo(() => {
-    const cats = Array.from(new Set(productos.map((p: { brand: string; }) => p.brand)));
+    const cats = Array.from(new Set(productos.map((p: { marca: string; }) => p.marca)));
     return cats;
   }, []);
   const models = useMemo(() => {
-    const cats = Array.from(new Set(productos.map((p: { model: string; }) => p.model)));
+    const cats = Array.from(new Set(productos.map((p: { modelo: string; }) => p.modelo)));
     return cats;
   }, []);
 
-  const applyFilters = (filters: { category: string, brand: string, model: string }) => {
+  const applyFilters = (filters: { category: string, marca: string, modelo: string }) => {
     productos.forEach((producto) => {
-      const element = document.getElementById(`product-${producto.id}`);
+      const element = document.getElementById(`product-${producto.codigo}`);
       if (!element) return;
 
       // Lógica: Solo un filtro a la vez. 
@@ -38,11 +39,11 @@ export function BarAction( {productos} : BarActionProps ) {
       let isVisible = true;
 
       if (filters.category) {
-        isVisible = producto.category === filters.category;
-      } else if (filters.brand) {
-        isVisible = producto.brand === filters.brand;
-      } else if (filters.model) {
-        isVisible = producto.model === filters.model;
+        isVisible = producto.categoria === filters.category;
+      } else if (filters.marca) {
+        isVisible = producto.marca === filters.marca;
+      } else if (filters.modelo) {
+        isVisible = producto.modelo === filters.modelo;
       }
 
       // Aplicamos CSS directamente
@@ -51,7 +52,7 @@ export function BarAction( {productos} : BarActionProps ) {
   };
 
   return (
-    <footer>
+    <footer className=''>
       <SearchOverlay 
         isOpen={isSearchOpen} 
         onClose={() => setIsSearchOpen(false)} 
@@ -63,8 +64,8 @@ export function BarAction( {productos} : BarActionProps ) {
         isOpen={isFiltersOpen}
         onClose={() => setIsFiltersOpen(false)}
         categories={categories}
-        brands={brands}
-        models={models}
+        marcas={brands}
+        modelos={models}
         onApplyFilters={applyFilters}
       />
 

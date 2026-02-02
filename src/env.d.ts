@@ -5,6 +5,8 @@ interface Product {
   codigo_oem: string;
   nombre: string;
   categoria: string;
+  marca: string;
+  modelo: string;
   precio: number;
   imagen_url: string;
 }

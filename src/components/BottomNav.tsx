@@ -4,7 +4,7 @@ import React from 'react';
 const BottomNav: React.FC<NavActionProps> = ({ onSearch, onFilter }) => {
   return (
     <nav className="fixed bottom-0 left-0 right-0 z-50 nav-glass border-t
-     border-gray-200/20 dark:border-white/10 px-6 pb-1 w-full mx-auto">
+     border-gray-200/20 dark:border-white/10 px-6 pb-1 w-52 mx-auto">
       <div className="flex items-center justify-center w-fit mx-auto gap-10 pt-1">
         <button 
           onClick={onSearch}
