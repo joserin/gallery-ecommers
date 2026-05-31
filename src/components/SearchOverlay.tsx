@@ -7,9 +7,10 @@ interface SearchOverlayProps {
   searchTerm: string;
   setSearchTerm: (val: string) => void;
   productos: Product[];
+  onJumpToProduct: (productId: string) => void;
 }
 
-const SearchOverlay: React.FC<SearchOverlayProps> = ({ isOpen, onClose, searchTerm, setSearchTerm, productos }) => {
+const SearchOverlay: React.FC<SearchOverlayProps> = ({ isOpen, onClose, searchTerm, setSearchTerm, productos, onJumpToProduct }) => {
   
   const [filteredProducts, setFilteredProducts] = useState<any[]>([]);
 
@@ -31,17 +32,14 @@ const SearchOverlay: React.FC<SearchOverlayProps> = ({ isOpen, onClose, searchTe
     return () => clearTimeout(handler);
   }, [searchTerm, productos]);
 
-  const handleProductClick = (productId: string | number) => {
-    const element = document.getElementById(`product-${productId}`);
-    
-    if (element) {
-      element.scrollIntoView({ behavior: 'smooth' });
-      onClose();
-      setSearchTerm('');
-    }
+  const handleProductClick = (productId: string) => {
+    onJumpToProduct(productId); // Le dice al padre: "Oye, renderiza hasta aquí si es necesario"
+    onClose();
+    setSearchTerm('');
   };
   
   if (!isOpen) return null;
+  const fallbackImage = "https://placehold.co/100x100/111111/FFFFFF?text=Sin+Foto";
 
   return (
     <div className="fixed inset-0 z-100 flex justify-center pointer-events-none">
@@ -69,18 +67,32 @@ const SearchOverlay: React.FC<SearchOverlayProps> = ({ isOpen, onClose, searchTe
           <p className="text-white/40 text-xs uppercase tracking-widest font-bold mb-4">
             Resultados - ({filteredProducts.length})
           </p>
-          <div className="flex flex-wrap gap-2 justify-center">
-            {filteredProducts.map(product => (
-              <button
-                onClick={() => handleProductClick(product.codigo)}
-                key={product.codigo} className="flex items-center gap-4 bg-white/10 p-2 rounded-xl">
-                <img src={product.imagen_url} alt={product.nombre} className="w-12 h-12 rounded-lg object-cover" />
-                <div>
-                  <p className="text-white font-medium">{product.nombre}</p>
-                  <p className="text-white/40 text-sm">{product.categoria}</p>
-                </div>
-              </button>
-            ))}
+          <div className="grid grid-cols-1 gap-2 justify-center">
+            {filteredProducts.map(product => {
+              const finalImageSrc = product.imagen_url && product.imagen_url.trim() !== "" 
+                ? product.imagen_url 
+                : fallbackImage;
+              return (
+                <button
+                  onClick={() => handleProductClick(product.codigo)}
+                  key={product.codigo} className="flex items-center gap-4 bg-white/10 p-2 rounded-xl">
+
+                  <div className="w-12 h-12 rounded-lg overflow-hidden bg-neutral-900/50 shrink-0 border border-white/10 flex items-center justify-center">
+                    <img src={finalImageSrc} alt={product.nombre} loading="lazy"
+                      className="w-full h-full object-cover" />
+                  </div>
+
+                  <div className="flex-1 min-w-0 pr-2">
+                    <h3 className="text-white font-semibold text-sm tracking-wide uppercase line-clamp-1 group-hover:text-primary transition-colors">
+                      {product.nombre}
+                    </h3>
+                    <p className="text-white/50 text-xs mt-0.5 truncate font-medium">
+                      {product.categoria} <span className="text-white/20 mx-1">•</span> {product.marca}
+                    </p>
+                  </div>
+                </button>
+              );
+            })}
           </div>
         </section>
       </div>

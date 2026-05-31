@@ -11,5 +11,9 @@ export default defineConfig({
     plugins: [tailwindcss()]
   },
   output: 'static',
-  integrations: [react()]
+  integrations: [react()],
+  /*
+  image: {
+    domains: ['tu-id-de-supabase.supabase.co'], 
+  }*/
 });
